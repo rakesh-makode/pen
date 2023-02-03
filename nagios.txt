@@ -1,0 +1,258 @@
+******NAGIOS *****
+configure hostname
+restart
+configure static ip
+configure apt-get update
+install sudo
+set the time zone
+>sudo dpkg-reconfigure tzdata asia/kolkata
+>//REPOSITORY DOWNLOAD
+> sudo apt-get install -y apache2 apache2-utils autoconf gcc libc6 libgd-dev make php python python3 tree unzip wget
+>sudo mkdir temp
+>cd temp
+>sudo wget -q http://192.168.1.251/sw/nagios/nagios-4.4.5.tar.gz
+>ls -l
+>sudo tar -zxf nagios-4.4.5.tar.gz
+> cd nagios-4.4.5
+> sudo ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo make all
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo make install-groups-users
+//CREATED NAGIOS USER AND GROUP
+//groupadd -r nagios
+//useradd -g nagios nagios
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo passwd nagios
+>/*New password:
+Retype new password:
+passwd: password updated successfully */
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo usermod -a -G nagios www-data
+//add the user www-data to the nagios group
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo make install
+//proper location install
+>shuhari@nagios:~/temp/nagios-4.4.5$ ls -l /usr/local/   
+//install binaries
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo make install-daemoninit
+//install service daemon
+
+>shuhari@nagios:~/temp/nagios-4.4.5$ ls -l /usr/local/nagios
+/* 
+ total 20
+drwxrwxr-x  2 nagios nagios 4096 Dec 21 19:34 bin
+drwxrwxr-x  2 nagios nagios 4096 Dec 21 19:35 libexec
+drwxrwxr-x  2 nagios nagios 4096 Dec 21 19:34 sbin
+drwxrwxr-x 14 nagios nagios 4096 Dec 21 19:34 share
+drwxrwxr-x  4 nagios nagios 4096 Dec 21 19:35 var
+  */
+>sudo make install-commandmode
+>  sudo make install-config
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo ls -l /etc/apache2/sites-*
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo make install-webconf
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo a2enmod rewrite
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo a2enmod cgi
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users nagiosadmin
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo systemctl restart apache2
+>shuhari@nagios:~/temp/nagios-4.4.5$ sudo systemctl restart nagios.service
+then open chrome enter ip address 192.168.80.40/nagios
+nagiosadmin
+Admin@123
+========================================
+#install dependencies for nagios plugins
+>cd
+>shuhari@deb1$: sudo apt-get install -y automake autotools-dev bc build-essential dc gawk gettext libmcrypt-dev libnet-snmp-perl libssl-dev snmp
+#download nagios plugin source code
+>>shuhari@deb1$:sudo wget -q http://192.168.1.251/sw/nagios/nagios-plugins-release-2.2.1.tar.gz
+>shuhari@nagios:~$ ls
+//nagios-plugins-release-2.2.1.tar.gz  temp
+>shuhari@nagios:~$ sudo tar -zxf nagios-plugins-release-2.2.1.tar.gz
+>shuhari@nagios:~$ ls
+//nagios-plugins-release-2.2.1  nagios-plugins-release-2.2.1.tar.gz  temp
+>shuhari@nagios:~$ cd nagios-plugins-release-2.2.1
+>shuhari@nagios:~/nagios-plugins-release-2.2.1$ sudo ./tools/setup
+>ls
+>sudo ./configure
+>sudo make
+>sudo make install
+>shuhari@nagios:~/nagios-plugins-release-2.2.1$ sudo ls -l /usr/local/nagios/libexec/
+//now showing files-pluggin install successfully 
+//open nagio web refesh and show green
+============================================
+install ncpa client on windows 10 virtual mc in server
+install in windows 10
+open google chromwe and search base machine ip -->>   https://192.168.80.137:5693
+Admin@123 
+now open server machine deb -->>cd /usr/local/nagios/libexec/
+shuhari@nagios:/usr/local/nagios/libexec$
+
+shuhari@nagios:/usr/local/nagios/libexec$ sudo wget http://192.168.1.251/sw/nagios/check_ncpa.py
+shuhari@nagios:/usr/local/nagios/libexec$ sudo chmod 777 /usr/local/nagios/libexec/check_ncpa.py
+shuhari@nagios:/usr/local/nagios/libexec$ sudo ./check_ncpa.py -V
+//check_ncpa.py, Version 1.1.5
+shuhari@nagios:/usr/local/nagios/libexec$ sudo ./check_ncpa.py -t Admin@123 -H 192.168.80.137 -M memory/virtual   
+//Admin@123 is a password and 192.168.80.137 is ip of windwos 10
+
+shuhari@nagios:~$ cd /usr/local/nagios/etc/objects/
+shuhari@nagios:/usr/local/nagios/etc/objects$ ls
+commands.cfg  contacts.cfg  localhost.cfg  printer.cfg  switch.cfg  templates.cfg  timeperiods.cfg  windows.cfg
+shuhari@nagios:/usr/local/nagios/etc/objects$ sudo nano commands.cfg
+
+//last line paste below command
+
+define command {
+
+    command_name    check_ncpa
+
+    command_line    $USER1$/check_ncpa.py -H $HOSTADDRESS$ $ARG1$
+
+}
+
+now goto  /usr/local/nagios/etc/
+ls
+sudo nano nagios.cfg
+uncomment cfg_dir=/usr/local/nagios/etc/servers
+create servers dir in etc folder
+-----------------
+for windows client goto /usr/local/nagios/etc/objects/templates.cfg 
+comment hostgroups line for windows-server host
+
+create file win-10.cfg in servers 
+ shuhari@nagios:/usr/local/nagios/etc/servers$ sudo nano win-10.cfg
+
+define host {
+
+        use                     windows-server
+
+        host_name               wind_10
+
+        alias                   windows 10
+
+        address                 192.168.80.182(win ip)
+
+        max_check_attempts      5
+
+}
+
+
+
+define service {
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     NCPA Agent Version
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/agent_version
+
+}
+
+
+
+define service {
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     CPU Average
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M cpu/percent -w 70 -c 80
+
+}
+
+
+
+define service {
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     C: Drive Space
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M 'disk/logical/C:|/used_percent' -w 70 -c 90
+
+}
+
+
+
+define service {
+
+
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     Uptime
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/uptime
+
+}
+
+
+
+define service {
+
+
+
+    use                     generic-service
+
+    host_name               wind_10
+
+    service_description     Virtual Memory
+
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M memory/virtual -w 70 -c 90
+
+}
+
+
+
+define service {
+
+
+
+    use                     generic-service
+
+    host_name               wind_10
+
+    service_description     Processes
+
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M processes -w 50 -c 80
+
+}
+
+
+
+define service {
+
+
+
+    use                     generic-service
+
+    host_name               wind_10
+
+    service_description     Network Interface
+
+    check_command           check_ncpa!-t 'pass123' -p -P 5693 -M interface/Ethernet0
+
+}
+
+
+
+define service{
+
+        use                     generic-service
+
+        host_name               wind_10
+
+        service_description     Server Name
+
+        check_command           check_ncpa!-t 'pass123' -p -P 5693 -M system/node
+
+}
+
+---------------------
+
+ shuhari@nagios:/usr/local/nagios/etc/objects$ sudo systemctl restart nagios
+
+ windows configure successfully done 
+now go to google chrome nagios 

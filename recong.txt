@@ -1,0 +1,32 @@
+RECON-NG
+
+shuhari@debian:~$ sudo apt-get install git python3-pip python3-setuptools
+shuhari@debian:~$ git clone https://github.com/lanmaster53/recon-ng.git
+
+shuhari@debian:~$ cd recon-ng/
+
+shuhari@debian:~/recon-ng$
+
+shuhari@debian:~/recon-ng$ pip3 install -r REQUIREMENTS
+shuhari@debian:~/recon-ng$ ./recon-ng --version
+5.1.2
+shuhari@debian:~/recon-ng$ ./recon-ng
+
+[recon-ng][default] > marketplace refresh
+
+[recon-ng][default] > marketplace info
+
+[recon-ng][default] > marketplace search hackertarget
+
+[recon-ng][default] > marketplace install recon/domains-hosts/hackertarget
+
+[recon-ng][default] > modules load recon/domains-hosts/hackertarget
+
+[recon-ng][default][hackertarget] > options set SOURCE checkpoint.com
+//SOURCE => checkpoint.com
+
+
+[recon-ng][default][hackertarget] > run
+
+[recon-ng][default][hackertarget] > dashboard
+[recon-ng][default][hackertarget] > show hosts

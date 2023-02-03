@@ -1,0 +1,42 @@
+note down ip mc1 and mc2
+mc-1 (server) mc-2 (client)
+open puty mc-1
+sudo apt-get install ssh
+sudo apt-get install python3
+python3
+>>>python3
+>>>import socket
+>>> dir()
+>>> server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+>>> server.bind(("0.0.0.0",1234))
+
+>>>server.listen()
+
+>>> (client,(ip,port))=server.accept()
+//when i enter accept trying to communicating to m2
+
+open 2nd client debian machine
+sudo apt-get update
+sudo apt-get install telnet
+sudo apt-get install ssh
+
+telnet 192.168.80.129 1234  -->> //1st debian machine ip enter in 2nd mc
+//trying to connected 192.168.80.129
+
+//go to 1st machine
+>>> print(ip)
+//192.168.80.131
+//in mc-1 type below cmd
+>>>client.send(b"Hello from machine-1")
+go to mc2 and check
+//>>> data = client.recv(2043)
+//go o machine 2 showing Hello from machine-1
+
+//in machine 2 type helow from machine2
+
+
+//below cmd in mc-1
+>>> data = client.recv(2048)
+>>> print(data)
+helow from machine2 showing in mc1
